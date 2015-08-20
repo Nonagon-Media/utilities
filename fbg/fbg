@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Ensure that directory is given
+if [ -z "$1" ]; then
+  echo "Directory required: fbg /path/to/image/files"
+  exit 1
+else
+  export TARGET_DIRECTORY=$1
+fi
+
+
+ITEM_COUNT=$(find "$TARGET_DIRECTORY" -name '*.*' | wc -l) #Count the number of files in the directory
+TARGET_DIRECTORY_INDEX=$(shuf -i 1-"$ITEM_COUNT" -n 1) #Pick a random number between 1 and the number of files in the directory
+TARGET_IMAGE=$(find "$TARGET_DIRECTORY" -name '*.*' | sed -n -e "$TARGET_DIRECTORY_INDEX{p;q}") # Pick the image that is the nth item in the directory. Nth being the TARGET_DIRECTORY_INDEX
+fbsetbg "$TARGET_IMAGE" #Set the fluxbox background
