@@ -8,8 +8,9 @@ if [ -d "$repo_directory" ]
         for repo in $(ls $repo_directory)
             do
                 cd $repo_directory/$repo
-                git pull origin master
+                git pull origin master > /dev/null 2>&1
             done
+        echo "Done updating repos in $repo_directory"
     else
         filetype=`file $repo_directory`
         echo "$repo_directory is invalid. Please use a proper directory:"
