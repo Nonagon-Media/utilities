@@ -1,0 +1,17 @@
+#!/bin/bash
+
+repo_directory=$1
+
+if [ -d "$repo_directory" ]
+    then
+
+        for repo in $(ls $repo_directory)
+            do
+                cd $repo_directory/$repo
+                git pull origin master
+            done
+    else
+        filetype=`file $repo_directory`
+        echo "$repo_directory is invalid. Please use a proper directory:"
+        echo "$filetype"
+fi
