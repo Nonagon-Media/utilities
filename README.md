@@ -3,6 +3,7 @@
 1. fbg: Script to change the background image on fluxbox
 2. updaterepos: Script to pull the latest master branch for each repo in a directory of repos
 3. getrecipes: Script to pull all of the recipes used by a chef node
+4. check_managed.sh: Script to tell if a node is managed by chef or not
 
 1. fbg
  REQUIREMENTS:
@@ -50,3 +51,19 @@
         example: getrecipes prod-nginx-server-oak
     DESCRIPTION:
         Script will take the given node name, check to see if it is managed by chef, and if it is, use knife to display all of the recipes used by that node
+    TODO:
+        Add a test that fails if check_managed.sh is not installed
+
+
+4. check_managed.sh
+    REQUIREMENTS:
+        POSIX-compliant shell
+        Must be added to your PATH environment variable
+        Properly configured chef environment (keys and whatnot) and properly installed knife tools. Installing ChefDK for you system should take care of these
+    USE:
+        check_managed.sh chef-node
+        example: check_managed.sh prod-nginx-server-oak
+    DESCRIPTION:
+        Script will take the given node and check it against chef. It will print a 0 if the node is managed by chef and a 1 if the node is not managed by chef
+    WARNINGS:
+        Script is used by getrecipes. So if you intend to use getrecipes you will need this script as well.
