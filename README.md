@@ -2,9 +2,10 @@
 
 1. fbg: Script to change the background image on fluxbox
 2. updaterepos: Script to pull the latest master branch for each repo in a directory of repos
+3. getrecipes: Script to pull all of the recipes used by a chef node
 
-1. fbg 
- REQUIREMENTS: 
+1. fbg
+ REQUIREMENTS:
   POSIX-compliant shell
   coreutils, sed, shuf, find
  USE:
@@ -37,4 +38,15 @@
         Add a test that fails if a directory is not a git repository
         Add checks to make sure git is properly installed and configured
         Add something to let a person choose which repository host to use
-        
+
+3. getrecipes
+    REQUIREMENTS:
+        POSIX-compliant shell
+        check_managed.sh must be in your path
+        getrecipes must be in your path
+        Properly configured chef environment (keys and whatnot) and properly installed knife tools. Installing ChefDK for you system should take care of these
+    USE:
+        getrecipes name-of-some-chef-node
+        example: getrecipes prod-nginx-server-oak
+    DESCRIPTION:
+        Script will take the given node name, check to see if it is managed by chef, and if it is, use knife to display all of the recipes used by that node

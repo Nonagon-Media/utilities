@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Script to list the chef recipes a node is using while filtering out other content
+
+#################
+### VARIABLES ###
+#################
+
+# GLOBALS
+SCRIPTNAME=`basename "$0"`
+FOUND_NODE=0
+
+# MESSAGES
+ERR_NO_NODE="No node was given at command line"
+ERR_CHECK_MANAGED_FAILURE="There was a problem running the check_managed.sh script"
+ERR_NODE_NOT_MANAGED="The node is not managed by chef"
+
+
+#####################
+### END VARIABLES ###
+#####################
+
+#################
+### FUNCTIONS ###
+#################
+
+# Function to error out if no node is given on the command line
+func_err_no_node_given() {
+    echo "$ERR_NO_NODE"
+    echo "Example: ./$SCRIPTNAME my-chef-node-name"
+    exit 1
+}
+
+# Function to error out if the check_managed script doesn't return proper information
+func_check_managed_failure(){
+    echo "$ERR_CHECK_MANAGED_FAILURE"
+    exit 1
+}
+
+# Function to error out if the node is not managed by chef
+func_node_not_managed(){
+    LOCAL_UNMANAGED_NODE=$1
+    echo "Checked $LOCAL_UNMANAGED_NODE: $ERR_CHECK_MANAGED_FAILURE"
+    exit 1
+}
+
+# Function to display the chef recipes used by a node
+func_get_recipes(){
+    LOCAL_GET_NODENAME=$1
+    knife search $LOCAL_GET_NODENAME | grep -i 'recipes' | tr ',' '\n' | grep -v -i 'recipes' | grep '\S' | grep -v 'items found'
+}
+
+# Function to make sure that the given node is managed by chef
+func_verify_node() {
+    LOCAL_NODENAME=$1
+    NODE_STATUS=`check_managed.sh $LOCAL_NODENAME`
+
+    case $NODE_STATUS in
+        0)
+            # Node was found to be managed by chef
+            FOUND_NODE=0
+            ;;
+        1)
+            # Node was found to not be managed by chef
+            func_node_not_managed $LOCAL_NODENAME
+            ;;
+        *)
+            # Anything but 0 or 1 means that there was a problem with check_managed.sh
+            func_check_managed_failure
+            ;;
+    esac
+}
+#####################
+### END FUNCTIONS ###
+#####################
+
+############
+### MAIN ###
+############
+
+# Make sure an argument is given on the command line
+
+if [ -z "$1" ];
+    then
+        func_err_no_node_given
+    else
+    NODENAME=$1
+fi
+
+# Make sure the argument is a valid chef node
+# Then grab the list of recipes
+NODE_STATUS=`check_managed.sh $NODENAME`
+func_verify_node $NODENAME
+
+# Display the recipes used by this node
+# This function will never be called unless the node exists AND is managed by chef
+func_get_recipes $NODENAME
