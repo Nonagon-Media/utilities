@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Script to find and remove old bash swap files from current directory
+
+#################
+### VARIABLES ###
+#################
+
+# GLOBALS
+SCRIPTNAME=`basename "$0"`
+
+TARGET_DIR=`pwd`
+
+# MESSAGES
+
+
+#####################
+### END VARIABLES ###
+#####################
+
+#################
+### FUNCTIONS ###
+#################
+
+# Function to delete a given file
+func_delete_swap() {
+    LOCAL_TARGET=$1
+    rm -f $LOCAL_TARGET
+}
+
+#####################
+### END FUNCTIONS ###
+#####################
+
+############
+### MAIN ###
+############
+
+for SWAP_FILE in $(find $TARGET_DIR -name '*.sw*' -print)
+    do
+        func_delete_swap $SWAP_FILE
+    done
+

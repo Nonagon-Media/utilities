@@ -4,6 +4,7 @@
 2. updaterepos: Script to pull the latest master branch for each repo in a directory of repos
 3. getrecipes: Script to pull all of the recipes used by a chef node
 4. check_managed.sh: Script to tell if a node is managed by chef or not
+5. delswap: Script to remove bash swap files, recursively, from the current directory
 
 1. fbg
  REQUIREMENTS:
@@ -67,3 +68,15 @@
         Script will take the given node and check it against chef. It will print a 0 if the node is managed by chef and a 1 if the node is not managed by chef
     WARNINGS:
         Script is used by getrecipes. So if you intend to use getrecipes you will need this script as well.
+
+5. delswap
+    REQUIREMENTS:
+        POSIX-compliant shell
+        Must be placed somewhere in your PATH
+        Must be executable
+    USE:
+        delswap (that's it. No arguments required)
+    DESCRIPTION:
+        Script will take the current working directory from pwd and recursively search it for bash swap files .sw[*]. For each one it finds it will delete it. That's it
+    WARNINGS:
+        There are no prompts or confirmations whatsoever. As long as the user that executes the script has permissions the found files will be deleted. Be sure not to run it anywhere sensitive.
