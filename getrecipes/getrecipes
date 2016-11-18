@@ -40,7 +40,7 @@ func_check_managed_failure(){
 # Function to error out if the node is not managed by chef
 func_node_not_managed(){
     LOCAL_UNMANAGED_NODE=$1
-    echo "Checked $LOCAL_UNMANAGED_NODE: $ERR_CHECK_MANAGED_FAILURE"
+    echo "Checked $LOCAL_UNMANAGED_NODE: $ERR_NODE_NOT_MANAGED"
     exit 1
 }
 
