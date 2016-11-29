@@ -5,6 +5,7 @@
 3. getrecipes: Script to pull all of the recipes used by a chef node
 4. check_managed.sh: Script to tell if a node is managed by chef or not
 5. delswap: Script to remove bash swap files, recursively, from the current directory
+6. search.sh: Script serves a a wrapper to the command find . -name 'string' -print
 
 1. fbg
  REQUIREMENTS:
@@ -80,3 +81,15 @@
         Script will take the current working directory from pwd and recursively search it for bash swap files .sw[*]. For each one it finds it will delete it. That's it
     WARNINGS:
         There are no prompts or confirmations whatsoever. As long as the user that executes the script has permissions the found files will be deleted. Be sure not to run it anywhere sensitive.
+
+6. search.sh
+    REQUIREMENTS
+        POSIX-compliant shell
+        Must be placed somewhere in your PATH
+        Must be executable
+    USE: search.sh somestring
+    DESCRIPTION:
+        Script will take the first argument as a search string and run a find command in the current directory for that string. Script will error out if no string is given
+    TODO:
+        Need to add some provisions for large output sets (i.e) run the find results through xargs for processing
+
