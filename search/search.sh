@@ -2,6 +2,7 @@
 
 # Description goes here
 # A little wrapper around the find command
+# Testing something
 
 #################
 ### VARIABLES ###
