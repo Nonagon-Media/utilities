@@ -93,3 +93,18 @@
     TODO:
         Need to add some provisions for large output sets (i.e) run the find results through xargs for processing
 
+7. jsonyaml
+    REQUIREMENTS
+        POSIX-compliant shell
+        Must be placed somewhere in your PATH
+        Must be executable
+        Must have a working python 2.7 environemnt (most modern systems come with this)
+    USE: 
+        json to yaml: jc filename.json
+        yaml to json: yc filename.yaml
+    DESCRIPTION:
+        The jc script takes a json file and converts it to yaml. Currently the file must have a .json extension
+        The yc script takes a yaml file and converts it to json. Currently the file must have a .yml extension
+    TODO:
+        Need to add some functionality for ensuring that an argument is given on the command line
+        Need to determine whether or not a file extension is part of the argument passed to the script and behave appropriately

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+jsonfile=$1
+tmpstring=${jsonfile::-5}
+yamlfile=$tmpstring.yml
+
+python -c 'import sys, yaml, json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, default_flow_style=False)' < $jsonfile > $yamlfile
