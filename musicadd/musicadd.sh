@@ -8,7 +8,7 @@ if [ -f /tmp/find_results ]; then
   cat /dev/null > /tmp/find_results
 fi
 
-find "$MUSIC_DIR/." -name '*.mp3' >> /tmp/find_results
+find "$MUSIC_DIR" -name '*.mp3' >> /tmp/find_results
 while read -r current_song
   do
     id3tool "$current_song" > /tmp/current_track
