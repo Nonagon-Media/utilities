@@ -20,8 +20,8 @@ while read -r current_song
 var track = {
   Title : "$track_title",
   Artist : "$track_artist",
-  Album : "track_album",
-  Filepath: "track_filepath"
+  Album : "$track_album",
+  Filepath: "$track_filepath"
 }
 db.$DB_NAME.insert(track);
 EOF
