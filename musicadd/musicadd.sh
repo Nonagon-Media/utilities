@@ -30,5 +30,5 @@ EOF
   mongo 127.0.0.1/$DB_NAME script.js
   rm -rf script.js
   counter=$((counter+1))
-  echo "DB_NAME should contain $counter records"
+  echo "$DB_NAME should contain $counter records"
   done < /tmp/find_results
