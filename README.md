@@ -6,6 +6,8 @@
 4. check_managed.sh: Script to tell if a node is managed by chef or not
 5. delswap: Script to remove bash swap files, recursively, from the current directory
 6. search.sh: Script serves a a wrapper to the command find . -name 'string' -print
+7. json2yaml: Script to convert a json file to yaml and vice versca
+8. extractpem.sh: Wrapper script for the ssh-keygen process that extracts a pubkey from a pem file
 
 1. fbg
  REQUIREMENTS:
@@ -108,3 +110,18 @@
     TODO:
         Need to add some functionality for ensuring that an argument is given on the command line
         Need to determine whether or not a file extension is part of the argument passed to the script and behave appropriately
+
+8. extractpem
+  REQUIREMENTS
+    POSIX-compliant shell
+    Must be placed somewhere in your PATH
+    Must be executable
+    Must have ssh-keygen installed ( installing openssh will take care of this one)
+  USE:
+    extractpem -k name_of_pemfile -p [ /path/to/pem/file]
+    -p is optional. If it is not given, the script defaults to $HOME/.ssh
+    The script errors out if:
+      1. No option is given
+      2. An option other than -k or -p is given
+      3. The argument for either option does not exist (i.e. an invalid pem file name or directory)
+      4. The openssh package, which contains ssh-keygen is not installed
